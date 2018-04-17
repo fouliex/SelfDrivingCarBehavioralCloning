@@ -34,8 +34,15 @@ The images went through 3 pre-processing steps before going to the Convolution l
 2. Normalize-by making the images to be between -1 and 1.
 3. Max Pooling-by reducing the images size by half the width and half the height.
 
-### Model Table
+### Model Table Summary 
+Below is the table summary of the model:
 ![Model Summary](./misc/modelSummary.png)
+
+The summary can be print on the console by creating the model and running:
+```python
+#m odel is the create model object
+print(model.summary())
+``
 
 ### Model Creation Function
 ```python
@@ -103,6 +110,12 @@ Learning Rate, the network  will changes its mind more quickly which is why a lo
 
 #### Adam Optimizer
 Adam is an optimization algorithm that is use to update the weights iteratively based of the training data.
+
+### Creation of the Training Set & Training Process
+To collect as much data as possible I drove the car around the track for a total of 10 laps. After collecting the data/myData the following information is created
+under data
+1. IMG folder - this folder contains all driving frames
+2. driving_log.csv - each row in this sheet correlates the image with the steering angle, throttle, brake and speed of the car.
 
 ### Dependencies
 This lab requires:
