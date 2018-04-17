@@ -1,4 +1,3 @@
-# Load Python Modules
 import numpy as np
 import sklearn
 import csv
@@ -29,7 +28,7 @@ def collect_right_camera_images_with_steering_angles(data_array, image_data, cen
     return data_array
 
 
-def collect_and_duplicate_middle_camera_images_with_steering_angles(data_array, center_angle, nextline):
+def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, center_angle, nextline):
     if center_angle < -0.15:
         for i in range(10):
             data_array.append(nextline)
@@ -47,13 +46,33 @@ def read_entries(data_array, driving_log_data, image_data):
                 center_angle = float(line[3])
                 name = image_data + line[0].split('/')[-1]
                 next_line = [name, center_angle]
-                data = collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
-                data = collect_right_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
-                data.append(next_line)
-                data = collect_and_duplicate_middle_camera_images_with_steering_angles(center_angle, next_line)
+                lef_data = collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
+                right_data = collect_right_camera_images_with_steering_angles(lef_data, image_data, center_angle, line)
+                right_data.append(next_line)
+                total_data = collect_and_duplicate_mid_camera_images_with_steering_angles(right_data, center_angle, next_line)
             except ValueError:
                 print("Unable to read entries")
-        return data
+        return total_data
+
+
+def plot_model_accuracy(model_history):
+    plt.plot(model_history.history['acc'])
+    plt.plot(model_history.history['val_acc'])
+    plt.title('The Model Accuracy')
+    plt.ylabel('accuracy')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'validation'], loc='upper left')
+    plt.show()
+
+
+def plot_model_loss(model_history):
+    plt.plot(model_history.history['loss'])
+    plt.plot(model_history.history['val_loss'])
+    plt.title('The Model Loss')
+    plt.ylabel('loss')
+    plt.xlabel('epoch')
+    plt.legend(['train', 'validation'], loc='upper left')
+    plt.show()
 
 
 # Use Generator so we don't have to load all images into memory
@@ -164,3 +183,13 @@ history = model.fit_generator(train_generator, steps_per_epoch=len(train_samples
 Save the Model
 '''
 model.save("model.h5")
+
+'''
+Plot Model Accuracy
+'''
+plot_model_accuracy(history)
+
+'''
+Plot Model Lost
+'''
+plot_model_loss(history)
