@@ -13,52 +13,47 @@ from keras.layers import Cropping2D
 from sklearn.model_selection import train_test_split
 
 
+def collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line):
+    left_name = image_data + line[1].split('/')[-1]
+    left_angle = center_angle + 0.35
+    left_line = [left_name, left_angle]
+    data_array.append(left_line)
+    return data_array
+
+
+def collect_right_camera_images_with_steering_angles(data_array, image_data, center_angle, line):
+    right_name = image_data + line[2].split('/')[-1]
+    right_angle = center_angle - 0.35
+    right_line = [right_name, right_angle]
+    data_array.append(right_line)
+    return data_array
+
+
+def collect_and_duplicate_middle_camera_images_with_steering_angles(data_array, center_angle, nextline):
+    if center_angle < -0.15:
+        for i in range(10):
+            data_array.append(nextline)
+    if center_angle > 0.15:
+        for i in range(4):
+            data_array.append(nextline)
+    return data_array
+
+
 def read_entries(data_array, driving_log_data, image_data):
-    with open('data/myData/driving_log.csv') as csvfile:
+    with open(driving_log_data) as csvfile:
         reader = csv.reader(csvfile)
         for line in reader:
             try:
                 center_angle = float(line[3])
-                name = 'data/myData/IMG/' + line[0].split('/')[-1]
-
-                newline = []
-                newline.append(name)
-                newline.append(center_angle)
-
-                # left camera
-                leftname = 'data/myData/IMG/' + line[1].split('/')[-1]
-                leftangle = center_angle + 0.35
-                leftline = []
-                leftline.append(leftname)
-                leftline.append(leftangle)
-                data.append(leftline)
-
-                # right camera
-                rightname = 'data/myData/IMG/' + line[2].split('/')[-1]
-                rightangle = center_angle - 0.35
-                rightline = []
-                rightline.append(rightname)
-                rightline.append(rightangle)
-                data.append(rightline)
-
-                data.append(newline)
-
-                # more emphasis on large steering samples
-                if center_angle < -0.15:
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                    data.append(newline)
-                if center_angle > 0.15:
-                    data.append(newline)
-                    data.append(newline)
+                name = image_data + line[0].split('/')[-1]
+                next_line = [name, center_angle]
+                data = collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
+                data = collect_right_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
+                data.append(next_line)
+                data = collect_and_duplicate_middle_camera_images_with_steering_angles(center_angle, next_line)
             except ValueError:
-                a = 1
+                print("Unable to read entries")
+        return data
 
 
 # Use Generator so we don't have to load all images into memory
@@ -80,7 +75,6 @@ def generator(data, batch_size):
                     images.append(center_image)
                     angles.append(center_angle)
                 except ValueError:
-                    a = 1
                     print("Not a number in ", batch_sample[0], " Value: ", batch_sample[1])
                 except Exception:
                     print("Image error ", batch_sample[0], " Value: ", batch_sample[1])
@@ -92,7 +86,6 @@ def generator(data, batch_size):
 
 
 def create_model(row, col, ch):
-
     model = Sequential()
 
     # Crop out the top and bottom parts of the image
@@ -138,7 +131,7 @@ data = []
 my_data_driving_log = 'data/myData/driving_log.csv'
 my_data_image = 'data/myData/IMG/'
 
-read_entries(data, my_data_driving_log, my_data_image)
+data = read_entries(data, my_data_driving_log, my_data_image)
 
 '''
 Split data into Training and validation
@@ -155,7 +148,7 @@ epoch = 10
 batch_size = 128
 train_generator = generator(train_samples, batch_size)
 validation_generator = generator(validation_samples, batch_size)
-# Trimmed image format
+# input shape
 ch, row, col = 3, 160, 320
 model = create_model(row, col, ch)
 print(model.summary())
@@ -166,7 +159,6 @@ Train the Model
 history = model.fit_generator(train_generator, steps_per_epoch=len(train_samples) / batch_size - 1,
                               validation_data=validation_generator,
                               validation_steps=len(validation_samples) / batch_size - 1, epochs=epoch)
-
 
 '''
 Save the Model
