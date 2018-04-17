@@ -6,9 +6,9 @@
 
 ## Overview
 
-The project is to learn more about deep neural networks and convolutional neural networks to clone driving behavior. A model is train, validate and test using Keras Framework.
+The project is to learn more about Deep Neural Networks and Convolutional Neural Networks to clone driving behavior. A model is train, validate and test using Keras Framework.
  
-The model outputs steering angles to an autonomous vehicle. A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then use to drive the car autonomously around a track.track.
+The model outputs steering angles to an autonomous vehicle. A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then use to drive the car autonomously around a track.
 
 ## Goals and Steps
 
@@ -17,21 +17,19 @@ The goals / steps of this project are the following:
 * Build, a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
 * Test that the model successfully drives around track one without leaving the road
-* Summarize the results with a written report
 
 ## Project Files
-My project includes the following files:
+The project includes the following files:
 * model.py containing the script to create and train the model
 * drive.py for driving the car in autonomous mode
 * model.h5 containing a trained convolution neural network 
-* bigVideo.mp4 Simulation run
-*   
+
 ## Model Architecture and Training Strategy
 The model is based on the [Nvidia Architecture](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
 It compose of 3 pre-processing steps, 5 Convolution layer, 1 flatten and 5 Fully Connected layers with 1 Dropout layer in the middle.
 
 ### Pre-Processing
-The images went through 3 pre-processing steps before going the Convolution layers. The steps are as follow:
+The images went through 3 pre-processing steps before going to the Convolution layers. The steps are as follow:
 1. Cropping-by removing the unwanted top and bottom parts of each images. There are not needed. 
 2. Normalize-by making the images to be between -1 and 1.
 3. Max Pooling-by reducing the images size by half the width and half the height.
@@ -87,7 +85,7 @@ def create_model(row, col, ch):
 
 ### Model Hyperparameters
 The model hyperparameters are:
-*  The Epoch is 10
+* The Epoch is 10
 * The Batch size is 128
 * The learning rate is 0.5
 * The Optimizer is the Adam Optimizer
@@ -114,7 +112,7 @@ This lab requires:
 The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
 
 ## Youtube Video
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
+[![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
 
 ## Details About Files In This Directory
 
