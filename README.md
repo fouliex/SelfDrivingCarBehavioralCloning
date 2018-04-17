@@ -1,61 +1,125 @@
+[//]: # (Image References)
+[image_0]: ./misc/main_image.gif
 # Behaviorial Cloning Project
+![alt text][image_0] 
 
-[![Udacity - Self-Driving Car NanoDegree](https://s3.amazonaws.com/udacity-sdc/github/shield-carnd.svg)](http://www.udacity.com/drive)
 
-Overview
----
-This repository contains starting files for the Behavioral Cloning Project.
+##Overview
 
-In this project, you will use what you've learned about deep neural networks and convolutional neural networks to clone driving behavior. You will train, validate and test a model using Keras. The model will output a steering angle to an autonomous vehicle.
+This project, is to learn more about deep neural networks and convolutional neural networks to clone driving behavior. 
+A model is train, validate and test using Keras. The model outputs a steering angles to an autonomous vehicle.
+A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are use to train a neural network and then use to drive the car autonomously around the track.
 
-We have provided a simulator where you can steer a car around a track for data collection. You'll use image data and steering angles to train a neural network and then use this model to drive the car autonomously around the track.
+## Goals and Steps
 
-We also want you to create a detailed writeup of the project. Check out the [writeup template](https://github.com/udacity/CarND-Behavioral-Cloning-P3/blob/master/writeup_template.md) for this project and use it as a starting point for creating your own writeup. The writeup can be either a markdown file or a pdf document.
-
-To meet specifications, the project will require submitting five files: 
-* model.py (script used to create and train the model)
-* drive.py (script to drive the car - feel free to modify this file)
-* model.h5 (a trained Keras model)
-* a report writeup file (either markdown or pdf)
-* video.mp4 (a video recording of your vehicle driving autonomously around the track for at least one full lap)
-
-This README file describes how to output the video in the "Details About Files In This Directory" section.
-
-Creating a Great Writeup
----
-A great writeup should include the [rubric points](https://review.udacity.com/#!/rubrics/432/view) as well as your description of how you addressed each point.  You should include a detailed description of the code used (with line-number references and code snippets where necessary), and links to other supporting documents or external references.  You should include images in your writeup to demonstrate how your code works with examples.  
-
-All that said, please be concise!  We're not looking for you to write a book here, just a brief description of how you passed each rubric point, and references to the relevant code :). 
-
-You're not required to use markdown for your writeup.  If you use another method please just submit a pdf of your writeup.
-
-The Project
----
 The goals / steps of this project are the following:
-* Use the simulator to collect data of good driving behavior 
-* Design, train and validate a model that predicts a steering angle from image data
-* Use the model to drive the vehicle autonomously around the first track in the simulator. The vehicle should remain on the road for an entire loop around the track.
+* Use the simulator to collect data of good driving behavior
+* Build, a convolution neural network in Keras that predicts steering angles from images
+* Train and validate the model with a training and validation set
+* Test that the model successfully drives around track one without leaving the road
 * Summarize the results with a written report
+
+## Project Files
+My project includes the following files:
+* model.py containing the script to create and train the model
+* drive.py for driving the car in autonomous mode
+* model.h5 containing a trained convolution neural network 
+* bigVideo.mp4 Simulation run
+*   
+## Model Architecture and Training Strategy
+The model is based on the [Nvidia Architecture](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
+It compose of 3 pre-processing steps, 5 Convolution layer, 1 flatten and 5 Fully Connected layers with 1 Dropout layer in the middle.
+
+### Pre-Processing
+The images went through 3 pre-processing steps before going the Convolution layers. The steps are as follow:
+1. Cropping-by removing the unwanted top and bottom parts of each images. There are not needed. 
+2. Normalize-by making the images to be between -1 and 1.
+3. Max Pooling-by reducing the images size by half the width and half the height.
+
+### Model Table
+[Model Summary](./misc/modelSummary.png)
+
+### Model Creation Function
+```python
+# Input shape
+
+ch, row, col = 3, 160, 320
+
+def create_model(row, col, ch):
+
+    model = Sequential()
+
+    # Crop out the top and bottom parts of the image
+    model.add(Cropping2D(cropping=((50, 20), (0, 0)), input_shape=(row, col, ch)))
+
+    # Preprocess incoming data, centered around zero with small standard deviation
+    model.add(Lambda(lambda x: (x / 127.5) - 1.0))
+
+    # Reduce the image size by half by using Max Pooling
+    model.add(MaxPooling2D((2, 2)))
+
+    # Add 5 Convolution Layers
+    model.add(Convolution2D(24, (5, 5), strides=2))
+    model.add(Convolution2D(36, (5, 5), strides=2))
+    model.add(Convolution2D(48, (5, 5), strides=1))
+    model.add(Convolution2D(64, (3, 3), strides=1))
+    model.add(Convolution2D(64, (3, 3), strides=1))
+
+    # Flatten
+    model.add(Flatten())
+
+    # Add  5 Fully Connected Layers, with 1 Dropout layer
+    model.add(Dense(1000))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(200))
+    model.add(Activation('relu'))
+    model.add(Dense(50))
+    model.add(Dense(10))
+    model.add(Dense(1))
+
+    # Compile with Adam Optimizer
+    model.compile(loss='mse', optimizer='adam', metrics=['accuracy'])
+
+    return model
+
+```
+
+### Model Hyperparameters
+The model hyperparameters are:
+*  The Epoch is 10
+* The Batch size is 128
+* The learning rate is 0.5
+* The Optimizer is the Adam Optimizer
+
+#### Epoch
+To tell the network how long we want it to train, we set an epoch number.An epoch is one trip through the entire 
+training dataset. For this project, the training epochs} is set to 10.
+
+#### Batch size
+The Batch size is the number of training data in one forward/backward pass. It is the number of sample that is propagated
+through the network. For this project the batch size is set to 128.The networks trains faster and update the weights after each mini-batches.
+#### Learning rate
+The learning rate has to do with how quickly the network abandons old beliefs for new ones.With a higher 
+Learning Rate, the network  will changes its mind more quickly which is why a low learning rate of 0.001 is chosen for this model.
+
+#### Adam Optimizer
+Adam is an optimization algorithm that is use to update the weights iteratively based of the training data.
 
 ### Dependencies
 This lab requires:
 
 * [CarND Term1 Starter Kit](https://github.com/udacity/CarND-Term1-Starter-Kit)
 
-The lab enviroment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
+The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
 
-The following resources can be found in this github repository:
-* drive.py
-* video.py
-* writeup_template.md
-
-The simulator can be downloaded from the classroom. In the classroom, we have also provided sample data that you can optionally use to help train your model.
 
 ## Details About Files In This Directory
 
 ### `drive.py`
 
-Usage of `drive.py` requires you have saved the trained model as an h5 file, i.e. `model.h5`. See the [Keras documentation](https://keras.io/getting-started/faq/#how-can-i-save-a-keras-model) for how to create this file using the following command:
+Usage of `drive.py` requires that the trained model is saved as an h5 file, i.e. `model.h5`. See the [Keras documentation](https://keras.io/getting-started/faq/#how-can-i-save-a-keras-model) for how to create this file using the following command:
+
 ```sh
 model.save(filepath)
 ```
@@ -111,15 +175,3 @@ python video.py run1 --fps 48
 ```
 
 Will run the video at 48 FPS. The default FPS is 60.
-
-#### Why create a video
-
-1. It's been noted the simulator might perform differently based on the hardware. So if your model drives succesfully on your machine it might not on another machine (your reviewer). Saving a video is a solid backup in case this happens.
-2. You could slightly alter the code in `drive.py` and/or `video.py` to create a video of what your model sees after the image is processed (may be helpful for debugging).
-
-### Tips
-- Please keep in mind that training images are loaded in BGR colorspace using cv2 while drive.py load images in RGB to predict the steering angles.
-
-## How to write a README
-A well written README file can enhance your project and portfolio.  Develop your abilities to create professional README files by completing [this free course](https://www.udacity.com/course/writing-readmes--ud777).
-
