@@ -37,7 +37,7 @@ The images went through 3 pre-processing steps before going the Convolution laye
 3. Max Pooling-by reducing the images size by half the width and half the height.
 
 ### Model Table
-[Model Summary](./misc/modelSummary.png)
+![Model Summary](./misc/modelSummary.png)
 
 ### Model Creation Function
 ```python
