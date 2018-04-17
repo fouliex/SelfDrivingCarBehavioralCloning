@@ -26,6 +26,9 @@ My project includes the following files:
 * model.h5 containing a trained convolution neural network 
 * bigVideo.mp4 Simulation run
 *   
+## Model Architecture and Training Strategy
+The model is based on the [Nvidia Architecture](http://images.nvidia.com/content/tegra/automotive/images/2016/solutions/pdf/end-to-end-dl-using-px.pdf).
+It is compose of 3 pre-processing steps, 5 Convolution layer, 1 flatten and 5 Fully Connnected layers with 1 Dropout layer in the middle.
 
 ### Dependencies
 This lab requires:
