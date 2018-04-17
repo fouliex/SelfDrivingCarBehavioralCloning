@@ -113,6 +113,8 @@ This lab requires:
 
 The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
 
+## Youtube Video
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/https://youtu.be/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
 
 ## Details About Files In This Directory
 
