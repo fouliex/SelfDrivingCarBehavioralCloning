@@ -170,7 +170,6 @@ validation_generator = generator(validation_samples, batch_size)
 # input shape
 ch, row, col = 3, 160, 320
 model = create_model(row, col, ch)
-print(model.summary())
 
 '''
 Train the Model
