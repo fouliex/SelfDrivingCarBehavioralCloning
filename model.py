@@ -127,7 +127,7 @@ def create_model(row, col, ch):
     # Flatten
     model.add(Flatten())
 
-    # Add  5 Fully Connected Layers, with 1 Dropout layer
+    # Add 5 Fully Connected Layers, 4 Activation function and 1 Dropout layer
     model.add(Dense(1000))
     model.add(Activation('relu'))
     model.add(Dropout(0.5))
@@ -173,6 +173,8 @@ validation_generator = generator(validation_samples, batch_size)
 # input shape
 ch, row, col = 3, 160, 320
 model = create_model(row, col, ch)
+
+print(model.summary())
 
 '''
 Train the Model

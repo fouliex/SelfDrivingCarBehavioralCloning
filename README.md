@@ -72,14 +72,16 @@ def create_model(row, col, ch):
     # Flatten
     model.add(Flatten())
 
-    # Add  5 Fully Connected Layers, with 1 Dropout layer
+    # Add 5 Fully Connected Layers, 4 Activation function and 1 Dropout layer
     model.add(Dense(1000))
     model.add(Activation('relu'))
     model.add(Dropout(0.5))
     model.add(Dense(200))
     model.add(Activation('relu'))
     model.add(Dense(50))
+    model.add(Activation('relu'))
     model.add(Dense(10))
+    model.add(Activation('relu'))
     model.add(Dense(1))
 
     # Compile with Adam Optimizer
