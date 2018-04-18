@@ -161,6 +161,15 @@ def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, cen
             data_array.append(next_line)
     return data_array
 ```
+#### Model Result
+The able is able to drive the car around the track without leaving the road. Below is the model training and validation
+ accuracy, loss graphs and youtube video:
+ ![model accuracy](./misc/modelAccuracy.png)
+ ![model loss](./misc/modelLost.png)
+ 
+ ###### Youtube Video
+ Click on the image to start the video
+[![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
 
 ### Dependencies
 This lab requires:
@@ -169,8 +178,7 @@ This lab requires:
 
 The lab environment can be created with CarND Term1 Starter Kit. Click [here](https://github.com/udacity/CarND-Term1-Starter-Kit/blob/master/README.md) for the details.
 
-## Youtube Video
-[![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
+
 
 ## Details About Files In This Directory
 
