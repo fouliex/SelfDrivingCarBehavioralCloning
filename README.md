@@ -162,7 +162,7 @@ def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, cen
             data_array.append(next_line)
     return data_array
 ```
-#### Model Result
+### Model Result
 The able is able to drive the car around the track without leaving the road. Below is the model training and validation
  accuracy, loss graphs and youtube video:
  ![model accuracy](./misc/modelAccuracy.png)
