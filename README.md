@@ -1,5 +1,5 @@
 [//]: # (Image References)
-[image_0]: ./misc/main_image.gif
+[image_0]: ./misc/main_image2.gif
 # Behaviorial Cloning Project
 ![alt text][image_0] 
 
