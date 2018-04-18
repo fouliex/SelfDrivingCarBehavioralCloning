@@ -43,7 +43,7 @@ The summary can be print on the console by creating the model and running:
 ```python
 # model is the create model object
 print(model.summary())
-``
+```
 
 ###### Model Creation Function
 ```python
