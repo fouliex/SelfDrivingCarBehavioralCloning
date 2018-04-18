@@ -171,7 +171,7 @@ The model is able to drive the car around the track without leaving the road. Be
  ##### Video
  Click on the image to start the youtube video 
  
-[![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
+[![Youtube Video](https://img.youtube.com/vi/f3yCQAm7Xww/0.jpg)](https://www.youtube.com/watch?v=f3yCQAm7Xww)
 
 Click [here](video/smallVideo.mp4) to view the video taken by the car
 
