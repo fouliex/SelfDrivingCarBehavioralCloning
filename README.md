@@ -36,6 +36,7 @@ The images went through 3 pre-processing steps before going to the Convolution l
 
 ### Model Table Summary 
 Below is the table summary of the model:
+
 ![Model Summary](./misc/modelSummary.png)
 
 The summary can be print on the console by creating the model and running:
