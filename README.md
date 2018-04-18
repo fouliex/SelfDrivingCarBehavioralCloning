@@ -93,10 +93,10 @@ def create_model(row, col, ch):
 
 ### Model Hyperparameters
 The model hyperparameters are:
-* The Epoch is 10
-* The Batch size is 128
-* The learning rate is 0.5
-* The Optimizer is the Adam Optimizer
+* The `epoch` is 10
+* The `batch_size` is 128
+* The `learning rate` is 0.5
+* The `optimizer` is the Adam Optimizer
 
 #### Epoch
 To tell the network how long we want it to train, we set an epoch number.An epoch is one trip through the entire 
@@ -168,8 +168,9 @@ The able is able to drive the car around the track without leaving the road. Bel
  ![model accuracy](./misc/modelAccuracy.png)
  ![model loss](./misc/modelLost.png)
  
- ###### Youtube Video
+ ##### Youtube Video
  Click on the image to start the video
+ 
 [![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
 
 ### Dependencies
