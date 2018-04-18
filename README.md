@@ -40,11 +40,11 @@ Below is the table summary of the model:
 
 The summary can be print on the console by creating the model and running:
 ```python
-#m odel is the create model object
+# model is the create model object
 print(model.summary())
 ``
 
-### Model Creation Function
+###### Model Creation Function
 ```python
 # Input shape
 
@@ -114,8 +114,53 @@ Adam is an optimization algorithm that is use to update the weights iteratively 
 ### Creation of the Training Set & Training Process
 To collect as much data as possible I drove the car around the track for a total of 10 laps. After collecting the data/myData the following information is created
 under data
-1. IMG folder - this folder contains all driving frames
-2. driving_log.csv - each row in this sheet correlates the image with the steering angle, throttle, brake and speed of the car.
+1. `IMG folder` - this folder contains all driving frames. 5 images are added for demo purposes to [data/myData/IMG](./data/myData/IMG). The folder is to big to add all the images.
+2. `driving_log.csv` - each row in this sheet correlates the image with the steering angle, throttle, brake and speed of the car.
+
+#### Driving Log Table
+![Driving Log Output](./misc/driving-log-output.png)
+
+### Simulator Capturing data
+Below is an image on how the Simulator captures data and then creates the `IMG folder` and `driving_log.csv`.
+![Capture Data](./misc/capturingData.png)
+
+### To make the Turns
+To make the turns a fix bias of +0.35 is added to the steering angle for the left camera images and a -.35 is added for the right camera images.
+For the middle camera images with center angle less then 0.15  are duplicated 10 times and center angle greater then 0.15 are duplicated 4 times to emphasis large steering data.
+
+###### Collecting left camera images with steering angles, code snapshot
+```python
+def collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line):
+    left_name = image_data + line[1].split('/')[-1]
+    left_angle = center_angle + 0.35
+    left_line = [left_name, left_angle]
+    data_array.append(left_line)
+    return data_array
+    
+```
+
+
+###### Collecting right camera images with steering angles, code snapshot
+```python
+def collect_right_camera_images_with_steering_angles(data_array, image_data, center_angle, line):
+    right_name = image_data + line[2].split('/')[-1]
+    right_angle = center_angle - 0.35
+    right_line = [right_name, right_angle]
+    data_array.append(right_line)
+    return data_array
+```
+
+###### Collecting and  duplicating middle camera images with steering angles, code snapshot
+```python
+def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, center_angle, next_line):
+    if center_angle < -0.15:
+        for i in range(10):
+            data_array.append(next_line)
+    if center_angle > 0.15:
+        for i in range(4):
+            data_array.append(next_line)
+    return data_array
+```
 
 ### Dependencies
 This lab requires:

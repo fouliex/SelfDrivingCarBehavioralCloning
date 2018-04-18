@@ -28,13 +28,13 @@ def collect_right_camera_images_with_steering_angles(data_array, image_data, cen
     return data_array
 
 
-def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, center_angle, nextline):
+def collect_and_duplicate_mid_camera_images_with_steering_angles(data_array, center_angle, next_line):
     if center_angle < -0.15:
         for i in range(10):
-            data_array.append(nextline)
+            data_array.append(next_line)
     if center_angle > 0.15:
         for i in range(4):
-            data_array.append(nextline)
+            data_array.append(next_line)
     return data_array
 
 
@@ -46,6 +46,7 @@ def read_entries(data_array, driving_log_data, image_data):
                 center_angle = float(line[3])
                 name = image_data + line[0].split('/')[-1]
                 next_line = [name, center_angle]
+
                 lef_data = collect_left_camera_images_with_steering_angles(data_array, image_data, center_angle, line)
                 right_data = collect_right_camera_images_with_steering_angles(lef_data, image_data, center_angle, line)
                 right_data.append(next_line)
