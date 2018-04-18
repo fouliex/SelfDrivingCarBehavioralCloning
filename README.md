@@ -168,10 +168,12 @@ The able is able to drive the car around the track without leaving the road. Bel
  ![model accuracy](./misc/modelAccuracy.png)
  ![model loss](./misc/modelLost.png)
  
- ##### Youtube Video
- Click on the image to start the video
+ ##### Video
+ Click on the image to start the youtube video 
  
 [![Youtube Video](https://img.youtube.com/vi/R0iOby1ZTRY/0.jpg)](https://www.youtube.com/watch?v=R0iOby1ZTRY)
+
+Click [here](video/smallVideo.mp4) to view the video taken by the car
 
 ### Dependencies
 This lab requires:
