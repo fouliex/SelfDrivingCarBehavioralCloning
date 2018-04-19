@@ -6,7 +6,7 @@
 
 ## Overview
 
-The model outputs steering angles to an autonomous vehicle. A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then apply to drive the car autonomously around a track.
+The model outputs steering angles to an autonomous vehicle.  A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then used to drive the car autonomously around a track.
 
 ## Goals and Steps
 
