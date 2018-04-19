@@ -6,11 +6,11 @@
 
 ## Overview
 
-The model outputs steering angles to an autonomous vehicle. A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then use to drive the car autonomously around a track.
+The model outputs steering angles to an autonomous vehicle. A Simulator is provided from Udacity, where one can steer the car around a track for data collection. Image data and steering angles are used to train a neural network and then apply to drive the car autonomously around a track.
 
 ## Goals and Steps
 
-The goals / steps of this project are the following:
+The goals/steps of this project are the following:
 * Use the simulator to collect data of good driving behavior
 * Build, a convolution neural network in Keras that predicts steering angles from images
 * Train and validate the model with a training and validation set
@@ -28,9 +28,9 @@ It compose of 3 pre-processing steps, 5 Convolution layer, 1 flatten and 5 Fully
 
 ### Pre-Processing
 The images went through 3 pre-processing steps before going to the Convolution layers. The steps are as follow:
-1. Cropping-by removing the unwanted top and bottom parts of each images. There are not needed. 
-2. Normalize-by making the images to be between -1 and 1.
-3. Max Pooling-by reducing the images size by half the width and half the height.
+1. Cropping- by removing the unwanted top and bottom parts of each images. There are not needed. 
+2. Normalize- by making the images to be between -1 and 1.
+3. Max Pooling- by reducing the images size by half the width and half the height.
 
 ### Model Table Summary 
 Below is the table summary of the model:
