@@ -100,20 +100,20 @@ The model hyperparameters are:
 
 #### Epoch
 To tell the network how long we want it to train, we set an epoch number.An epoch is one trip through the entire 
-training dataset. For this project, the training epochs} is set to 10.
+training dataset. For this project, the training epoch is set to 10.
 
 #### Batch size
 The Batch size is the number of training data in one forward/backward pass. It is the number of sample that is propagated
 through the network. For this project the batch size is set to 128.The networks trains faster and update the weights after each mini-batches.
 #### Learning rate
-The learning rate has to do with how quickly the network abandons old beliefs for new ones.With a higher 
+The Learning rate has to do with how quickly the network abandons old beliefs for new ones.With a higher 
 Learning Rate, the network  will changes its mind more quickly which is why a low learning rate of 0.001 is chosen for this model.
 
 #### Adam Optimizer
 Adam is an optimization algorithm that is use to update the weights iteratively based of the training data.
 
 ### Creation of the Training Set & Training Process
-To collect as much data as possible I drove the car around the track for a total of 10 laps. After collecting the data/myData the following information is created
+To collect as much data as possible the car is drove around the track for a total of 10 laps. After collecting the data/myData the following information is created
 under data
 1. `IMG folder` - this folder contains all driving frames. 5 images are added for demo purposes to [data/myData/IMG](./data/myData/IMG). The folder is to big to add all the images.
 2. `driving_log.csv` - each row in this sheet correlates the image with the steering angle, throttle, brake and speed of the car.
