@@ -37,7 +37,7 @@ Below is the table summary of the model:
 
 ![Model Summary](./misc/modelSummary.png)
 
-The summary can be print on the console by creating the model and running:
+The summary can be printed on the console by creating the model and running `model.summary()`.
 ```python
 # model is the create model object
 print(model.summary())
